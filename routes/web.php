@@ -89,7 +89,7 @@ Route::get('clear_cache', function () {
 
 Route::get('migrate', function () {
 
-  \Artisan::call('migrate');
+  Artisan::call('migrate');
 
   dd("Migrated all tables");
 
