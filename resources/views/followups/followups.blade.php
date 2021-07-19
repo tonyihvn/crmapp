@@ -3,7 +3,7 @@
 {{$title}}
 @endsection
 @section('content')
-<div class="list-grooup">
+<div class="list-group">
     @foreach($followups as $followup)
         <div class="list-group-item">
             <h3><a href="{{ url('/member/'.$followup->member_id) }}">{{$followup->title}}</a><br><small style="color: green;"> {{$followup->member->name}}</small></h3>

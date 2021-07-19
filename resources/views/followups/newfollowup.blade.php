@@ -10,7 +10,7 @@ New Followup Activity
       <label for="member_id">Member Name</label>
       <select class="form-control" name="member_id" id="member_id">
         @if(isset($memberid))
-            <option value="{{$memberid}}">{{$membername}}</option>
+            <option value="{{$memberid}}">{{$name}}</option>
         @else
             @foreach($members as $member)
                 <option value="{{$member->id}}">{{$member->name}}</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\members;
+use App\followups;
 use Illuminate\Http\Request;
 
 class MembersController extends Controller
@@ -57,9 +58,11 @@ class MembersController extends Controller
     public function show($id)
     {
         $member = Members::where('id', $id)->first();
+        $members = members::all();
+        $followups = followups::where('member_id',$id)->orderBy('created_at', 'desc')->paginate(5);
 
         if ($member) {
-            return view('posts.show')->withPost($post)->withComments($comments);
+            return view('members.member')->with(['member'=>$member,'members'=>$members,'followups'=>$followups]);
         }
     }
 
@@ -95,5 +98,19 @@ class MembersController extends Controller
     public function destroy(members $members)
     {
         //
+    }
+
+    public function searchMember(Request $request)
+    {
+        $results = members::where('name', 'LIKE', '%'.$request->keyword.'%')->orWhere('about', 'LIKE', '%'.$request->keyword.'%')->orWhere('location', 'LIKE', '%'.$request->keyword.'%')->get();
+        
+        if($results){
+            return view('members.members')->with(['members'=>$results])->withTitle("Search Results for: ". $request->keyword);
+        }else{
+            $message = "No member information found with the search keyword: ".$request->keyword;
+            return redirect('/members')->withMessage($message);
+
+        }
+        
     }
 }

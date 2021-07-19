@@ -53,10 +53,19 @@ Route::middleware(['auth'])->group(function () {
   Route::get('new-member', 'MembersController@create');
   // save new member
   Route::post('newmember', 'MembersController@store');
-  // edit member form
+  
+  // view member info
+  Route::get('member/{id}', 'MembersController@show');
+  
+  // update member
   Route::get('editmember/{id}', 'MembersController@edit');
   // update member
   Route::post('updatemember', 'MembersController@update');
+
+  // search member
+  Route::post('search-member', 'MembersController@searchMember');
+  
+
   // delete member
   Route::get('deletemember/{id}', 'MembersController@destroy');
 
@@ -67,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
   Route::get('new-followup', 'FollowupsController@create');
   // save new member
   Route::post('newfollowup', 'FollowupsController@store');
+
+  // add new followup for member
+  Route::get('addfollowup/{memberid}/{name}', 'FollowupsController@addfollowup');
 
 
 });
@@ -79,12 +91,9 @@ Route::get('user/{id}/posts', 'UserController@user_posts')->where('id', '[0-9]+'
 Route::get('post/{slug}', ['as' => 'post', 'uses' => 'PostController@show'])->where('slug', '[A-Za-z0-9-_]+');
 
 // ARTISAN COMMANDS
-Route::get('clear_cache', function () {
-
-  \Artisan::call('cache:clear');
-
-  dd("Cache is cleared");
-
+Route::get('/clear-cache', function() {
+  Artisan::call('cache:clear');
+  return "Cache is cleared";
 });
 
 Route::get('migrate', function () {

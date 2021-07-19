@@ -92,4 +92,13 @@ class FollowupsController extends Controller
     {
         //
     }
+
+    public function addfollowup($memberid,$name){
+        if (auth()->user()->can_post()) {
+            $members = members::select('id','name')->get();
+            return view('followups.newfollowup')->with(['members'=>$members, 'memberid'=>$memberid,'name'=>$name]);
+        } else {
+            return redirect('/')->withErrors('You have not sufficient permissions for adding followup activity');
+        }
+    }
 }

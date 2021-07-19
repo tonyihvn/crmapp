@@ -30,6 +30,7 @@ Add New Member
     <div class="col-md-6">
       <label for="assignedto">Assigned To</label>
       <select class="form-control" name="assignedto" id="assignedto">
+      <option value="1">None</option>
         @foreach($members as $member)
             <option value="{{$member->id}}">{{$member->name}}</option>
         @endforeach
@@ -45,6 +46,7 @@ Add New Member
           <option value="Visitor">Visitor</option>
           <option value="Traveled">Traveled</option>
           <option value="Minister">Minister</option>
+          <option value="Member" selected>Member</option>
       </select>
     </div>
   </div>
@@ -56,11 +58,14 @@ Add New Member
           <label for="ministry">Ministry</label>
           <select class="form-control" name="ministry" id="ministry">
             <option value="Evangelism">Evangelism</option>
+            <option value="Prison">Prison</option>
+            <option value="Medical">Medical</option>
             <option value="Usher">Usher</option>
             <option value="Chior">Chior</option>
                 <option value="Sanctuary Keepers">Sanctuary Keepers</option>
                 <option value="Pastor">Pastor</option>
                 <option value="Administration">Administration</option>
+                <option value="None">None</option>
               </select>
         </div>
         
